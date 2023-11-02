@@ -57,6 +57,9 @@ router.post("/login", async (req, res) => {
 
 /* GET route to verify the JWT */
 
-
+router.get("/verify", isAuthenticated, (req, res) => {
+  console.log(req.auth);
+  res.json("Ok");
+});
 
 module.exports = router;
