@@ -4,17 +4,17 @@ const { Schema, model } = require("mongoose");
 const userSchema = new Schema({
   firstname: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
   },
   lastname: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
   },
   username: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
     unique: true,
   },
@@ -40,15 +40,15 @@ const userSchema = new Schema({
   },
   language: {
     type: String,
-    required: true,
+    // required: true,
   },
   sex: {
     type: String,
-    required: true,
+    // required: true,
   },
   age: {
     type: Number,
-    required: true,
+    // required: true,
   },
   pointsBalance: {
     type: Number,
