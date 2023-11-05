@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User.model");
 const jwt = require("jsonwebtoken");
+const { isAuthenticated } = require("../middlewares/jwt.middleware");
 
 router.get("/", (req, res, next) => {
   res.json("All good in here");
@@ -45,21 +46,23 @@ router.post("/login", async (req, res) => {
       res.status(202).json({ token: authToken });
     } else {
       {
-        res.status(403).json({ errorMessage: "Password invalid" });
+        res.status(403).json({ errorMessage: "Password and/or email invalid" });
       }
     }
   } else {
     {
-      res.status(403).json({ errorMessage: "User not found" });
+      res.status(403).json({ errorMessage: "Password and/or email invalid" });
     }
   }
 });
 
 /* GET route to verify the JWT */
 
-router.get("/verify", isAuthenticated, (req, res) => {
-  console.log(req.auth);
-  res.json("Ok");
+router.get("/verify", isAuthenticated, async (req, res) => {
+  console.log("here is after the middleware, what JWT is giving us", req.payload);
+  const currentUser = await User.findById(req.payload.userId)
+  currentUser.password = "*******"
+  res.json({ message: 'Token is valid: ', currentUser });
 });
 
 module.exports = router;
