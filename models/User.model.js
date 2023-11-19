@@ -12,12 +12,6 @@ const userSchema = new Schema({
     // required: true,
     trim: true,
   },
-  username: {
-    type: String,
-    // required: true,
-    trim: true,
-    unique: true,
-  },
   password: {
     type: String,
     required: true,
@@ -38,30 +32,32 @@ const userSchema = new Schema({
   userImage: {
     type: String,
   },
-  language: {
-    type: String,
-    // required: true,
-  },
-  sex: {
-    type: String,
-    // required: true,
-  },
-  age: {
-    type: Number,
-    // required: true,
-  },
   pointsBalance: {
     type: Number,
     default: 0,
   },
-  creditCardRef: {
-    type: String,
-  },
-  servicesOffered: [String],
-  currentFavours: [String],
-  pastFavours: [String],
-  currentErrands: [String],
-  pastErrands: [String],
+  // creditCardRef: {
+  // type: String,
+  // },
+  skills: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Skill",
+    },
+  ],
+  messages: [
+    {
+      messageId: String,
+      senderId: String,
+      receiverId: String,
+      content: String,
+      timeStamp: {
+        type: Date,
+        default: Date.now,
+      },
+      IsSystemMessage: Boolean,
+    },
+  ],
 });
 
 const User = model("User", userSchema);
